@@ -30,6 +30,66 @@ function findAuthor(url) {
     }
     xhr.send();
 
+
+
+
+
+
+
+
+//trying to understand how encodeURIComponent works (ignore, its just for kush ;)
+
+
+//     // ECMA-262 - 15.1.3.4
+// function URIEncodeComponent(component) {
+//   var unescapePredicate = function(cc) {
+//     if (isAlphaNumeric(cc)) return true;
+//     // !
+//     if (cc == 33) return true;
+//     // '()*
+//     if (39 <= cc && cc <= 42) return true;
+//     // -.
+//     if (45 <= cc && cc <= 46) return true;
+//     // _
+//     if (cc == 95) return true;
+//     // ~
+//     if (cc == 126) return true;
+
+//     return false;
+//   };
+
+//   var string = ToString(component);
+//   return Encode(string, unescapePredicate);
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 function createRequest(url) {
