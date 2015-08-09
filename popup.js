@@ -2,37 +2,45 @@ function renderStatus(text){
     document.getElementById('status').textContent = text;
 }
 
-function updateStatus(title, url) {
+function updateStatus(title, author, url) {
+    console.log("New entry, with details: " + title + author + url);
     var listItem = document.createElement("p");
-    var titleItem = document.createElement("span")
+    var titleItem = document.createElement("span");
     titleItem.className = "tab-title";
-    titleItem.textContent = title + " - ";
+    titleItem.textContent = title + " (" + author + ") " + " - ";
     listItem.appendChild(titleItem);
     listItem.innerHTML +=  url;
     document.getElementById('status').appendChild(listItem);
 }
 
 
-function findAuthor(url) {
-	var author;
-	var encodedUrl = encodeURI(url);
-	console.log(encodedUrl);
-	var HTTPrequest = "http://access.alchemyapi.com/calls/url/URLGetAuthor?"
-	+"apikey="+ keys.alchemy +"&url=" + encodedUrl + "&outputMode=json";
-	console.log(HTTPrequest);
-	var xhr = new XMLHttpRequest();
-	xhr.open("GET", HTTPrequest, true);
-    xhr.onreadystatechange = function() {
+function findAuthor(url, callback) {
+    var data;
+    var encodedUrl = encodeURI(url);
+    //console.log(encodedUrl);
+    var HTTPrequest = "http://access.alchemyapi.com/calls/url/URLGetAuthors?"
+    + "apikey=" + keys.alchemy + "&url=" + encodedUrl + "&outputMode=json";
+    //console.log(HTTPrequest);
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", HTTPrequest, true);
+    xhr.onreadystatechange = function processData() {
         if (xhr.readyState == 4) {
-            author = JSON.parse(xhr.responseText);
-            console.log(author);
+            data = JSON.parse(xhr.responseText);
+            var names = data.authors.names;
+            var authors = "No author detected";
+            if(names.length > 0) {
+                authors = names[0];
+                for(var i = 1; i < names.length - 1; i++) {
+                    authors += names[i] + ", ";
+                }
+            }
+            callback(authors);
         }
     }
     xhr.send();
 }
 
 function createRequest(url) {
-	
     return {
         "key": keys.easybib,
         "source": "website",
@@ -44,7 +52,7 @@ function createRequest(url) {
             "day": 1,
             "month": 1,
             "year": 1969,
-            "url": "",
+            "url": url,
             "dayaccessed": Date.getDay(),
             "monthaccessed": Date.getMonth(),
             "yearaccessed": Date.getFullYear()
@@ -57,7 +65,7 @@ function cite(urlArray) {
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4) {
             var res = JSON.parse(xhr.responseText);
-            console.log(res);
+            //console.log(res);
         }
     }
     var request = [];
@@ -71,13 +79,21 @@ document.addEventListener('DOMContentLoaded', function() {
     chrome.tabs.query({}, function (tabs) {
         for(var i = 0; i < tabs.length; i++) {
             var url = "";
-            if(tabs[i].url.length > 36) {
-                url = tabs[i].url.substring(0, 36) + "...";
+            var fullURL = tabs[i].url;
+            var title = tabs[i].title;
+            console.log(fullURL + title);
+
+            if(fullURL.length > 36) {
+                url = fullURL.substring(0, 36) + "...";
             } else {
-                url = tabs[i].url;
+                url = fullURL;
             }
-            updateStatus(tabs[i].title, url);
-            //findAuthor(url);
+            (function(title, url, fullURL) {
+                findAuthor(fullURL, function(author) {
+                    console.log("Before sent: " + title + author + url);
+                    updateStatus(title, author, url);
+                })
+            })(title, url, fullURL);
         }
     });
 });
