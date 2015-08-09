@@ -2,9 +2,13 @@ function renderStatus(text){
 	document.getElementById('status').textContent = text;
 }
 
-function updateStatus(text) {
+function updateStatus(title, url) {
 	var listItem = document.createElement("p");
-	listItem.textContent = text;
+	var titleItem = document.createElement("span")
+	titleItem.className = "tab-title";
+	titleItem.textContent = title;
+	listItem.appendChild(titleItem);
+	listItem.innerHTML +=  " - " + url;
 	document.getElementById('status').appendChild(listItem);
 }
 
@@ -31,7 +35,13 @@ function cite(urlArray) {
 document.addEventListener('DOMContentLoaded', function() {
 	chrome.tabs.query({}, function (tabs) {
 		for(var i = 0; i < tabs.length; i++) {
-			updateStatus(tabs[i].url);
+			var url = "";
+			if(tabs[i].url.length > 36) {
+				url = tabs[i].url.substring(0, 36) + "...";
+			} else {
+				url = tabs[i].url;
+			}
+			updateStatus(tabs[i].title, url);
 		}
 	});
 });
