@@ -12,7 +12,28 @@ function updateStatus(title, url) {
     document.getElementById('status').appendChild(listItem);
 }
 
+
+function findAuthor(url) {
+	var author;
+	var encodedUrl = encodeURI(url);
+	console.log(encodedUrl);
+	var HTTPrequest = "http://access.alchemyapi.com/calls/url/URLGetAuthor?"
+	+"apikey="+ keys.alchemy +"&url=" + encodedUrl + "&outputMode=json";
+	console.log(HTTPrequest);
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", HTTPrequest, true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4) {
+            author = JSON.parse(xhr.responseText);
+            console.log(author);
+        }
+    }
+    xhr.send();
+
+}
+
 function createRequest(url) {
+	
     return {
         "key": keys.easybib,
         "source": "website",
@@ -57,6 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 url = tabs[i].url;
             }
             updateStatus(tabs[i].title, url);
+            //findAuthor(url);
         }
     });
 });
