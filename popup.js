@@ -3,11 +3,14 @@ function renderStatus(text){
 }
 
 function updateStatus(text) {
-	document.getElementById('status').textContent += text;
+	var listItem = document.createElement("LI");
+	var listText = document.createTextNode(text);
+	listItem.appendChild(listText);
+	document.getElementById('status-list').appendChild(listText);
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-	chrome.tabs.query({active: true}, function (tabs) {
+	chrome.tabs.query({}, function (tabs) {
 		for(var i = 0; i < tabs.length; i++) {
 			updateStatus(tabs[i].url);
 		}
