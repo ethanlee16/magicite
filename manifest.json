@@ -1,17 +1,17 @@
 {
-	"manifest_version": 2,
-	"name": "Magicite",
-	"description": "Automatically cite your sources in MLA format straight from your open tabs",
-	"version": "1.0",
-	"browser_action": {
-		"default_icon": "icon.png",
-		"default_popup": "popup.html"
-	},
-	"permissions": [
-		"activeTab", 
-		"tabs",
-		"downloads",
-		"clipboardWrite", 
-		"https://easybib.com"
-	]
+    "manifest_version": 2,
+    "name": "Magicite",
+    "description": "Automatically cite your sources in MLA format straight from your open tabs",
+    "version": "1.0",
+    "browser_action": {
+        "default_icon": "icon.png",
+        "default_popup": "popup.html"
+    },
+    "permissions": [
+        "activeTab", 
+        "tabs",
+        "downloads",
+        "clipboardWrite", 
+        "https://easybib.com"
+    ]
 }
