@@ -4,25 +4,54 @@
     <title>Magicite</title>
     <style>
       body {
-        font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+        font-family: 'Helvetica Neue', 'Lucida Grande', sans-serif;
         font-size: 100%;
-        background-color: black;
-
+        min-width:300px;
+        height:300px;
+        padding:0px;
+        margin:0px;
       }
       #status {
         white-space: pre;
         text-overflow: ellipsis;
-        color:white;
+        color:black;
         max-width: 500px;
+        text-align:center;
+      }
+      .header {
+        padding:8px 8px;
+        margin:auto;
+        background-color: #B2B2CC;
+        text-align:center;
+        display: block;
+      }
+      .contentBox {
+        text-align: center;
+        background-color: #4775A3;
+        color:white;
+      }
+      .contentBox h3{
+        margin:0px;
+        padding-top:10px;
       }
     </style>
     <script src="popup.js"></script>
   </head>
   <body>
-    <div id="status">
-      <ul id="status-list">
-      </ul>
+    <div class= "header">
+    <img src ="icon.png" height="25%" width="25%">
+    <h2>MAGICITE</h2>
     </div>
+    <div class="contentBox">
+      <h3>URLS:<h3>
+      <div id="status">
+        <ul id="status-list">
+        </ul>
+      </div>
+    </div>
+
   </body>
 </html>
+
+
 
