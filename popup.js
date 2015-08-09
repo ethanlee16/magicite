@@ -3,5 +3,31 @@ function renderStatus(text){
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-	renderStatus("Hello world!");
+	renderStatus("Ethan's alive!");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
 })
