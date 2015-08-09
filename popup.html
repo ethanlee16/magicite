@@ -6,50 +6,55 @@
       body {
         font-family: 'Helvetica Neue', 'Lucida Grande', sans-serif;
         font-size: 100%;
-        min-width:300px;
-        height:300px;
-        padding:0px;
-        margin:0px;
+        min-width: 300px;
+        height: 300px;
+        padding: 10px 10px 10px 10px;
+        margin: 0px;
+        background-color: #FF4F45;
+        color: white;
       }
       #status {
-        white-space: pre;
         text-overflow: ellipsis;
-        color:black;
+        color: black;
         max-width: 500px;
-        text-align:center;
+        text-align: center;
+        text-decoration: underline;
+        word-wrap: break-word;
+        width: 75%;
+        margin: auto;
       }
       .header {
-        padding:8px 8px;
-        margin:auto;
-        background-color: #B2B2CC;
-        text-align:center;
+        padding: 8px 8px;
+        margin: auto;
+        background-color: #FF4F45;
+        text-align: center;
         display: block;
       }
       .contentBox {
+        box-shadow: 0px -5px 40px rgba(0, 0, 0, 0.2);
         text-align: center;
-        background-color: #4775A3;
-        color:white;
+        background-color: white;
+        color: black;
+        font-size: 10pt;
+        padding: 5px 5px 5px 5px;
       }
       .contentBox h3{
-        margin:0px;
-        padding-top:10px;
+        margin: 0px;
+        padding-top: 10px;
       }
     </style>
     <script src="popup.js"></script>
   </head>
   <body>
-    <div class= "header">
-    <img src ="icon.png" height="25%" width="25%">
+    <div class="header">
+    <img src="icon.png" height="25%" width="25%">
     <h2>MAGICITE</h2>
     </div>
     <div class="contentBox">
-      <h3>URLS:<h3>
+      <h3>URLS:</h3>
       <div id="status">
-        <ul id="status-list">
-        </ul>
       </div>
     </div>
-
   </body>
 </html>
 

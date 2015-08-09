@@ -3,10 +3,9 @@ function renderStatus(text){
 }
 
 function updateStatus(text) {
-	var listItem = document.createElement("LI");
-	var listText = document.createTextNode(text);
-	listItem.appendChild(listText);
-	document.getElementById('status-list').appendChild(listText);
+	var listItem = document.createElement("p");
+	listItem.textContent = text;
+	document.getElementById('status').appendChild(listItem);
 }
 
 document.addEventListener('DOMContentLoaded', function() {
