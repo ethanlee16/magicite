@@ -1,3 +1,5 @@
+var currentTabs = [];
+
 function renderStatus(text){
     document.getElementById('status').textContent = text;
 }
@@ -40,12 +42,14 @@ function findAuthor(url, callback) {
     xhr.send();
 }
 
-function createRequest(url) {
-    return {
+function createReqObject(title, author, url) {
+    var d = new Date();
+    currentTabs.push({
         "key": keys.easybib,
         "source": "website",
+        "style": "mla7",
         "website": {
-            "title": ""
+            "title": title
         },
         "pubonline": {
             "title": "",
@@ -53,26 +57,39 @@ function createRequest(url) {
             "month": 1,
             "year": 1969,
             "url": url,
-            "dayaccessed": Date.getDay(),
-            "monthaccessed": Date.getMonth(),
-            "yearaccessed": Date.getFullYear()
-        }
-    }
+            "dayaccessed": d.getDay(),
+            "monthaccessed": d.getMonth(),
+            "yearaccessed": d.getFullYear()
+        },
+        "contributors": [
+            {
+                "function": "author",
+                "first": author.substring(0, author.indexOf(" ")),
+                "last": author.substring(author.indexOf(" "), author.length)
+            }
+        ]
+    });
 }
+
 function cite(urlArray) {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "http://www.easybib.com/cite/bulk", true);
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4) {
             var res = JSON.parse(xhr.responseText);
-            //console.log(res);
+            console.log(res);
         }
     }
     var request = [];
     for (var i = 0; i < urlArray.length; i++) {
-        request.push(createRequest(urlArray[i]));
+        request.push(urlArray[i]);
     }
     xhr.send(request);
+}
+
+
+function generateCitations() {
+    cite(currentTabs);
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -92,6 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 findAuthor(fullURL, function(author) {
                     console.log("Before sent: " + title + author + url);
                     updateStatus(title, author, url);
+                    createReqObject(title, author, url);
                 })
             })(title, url, fullURL);
         }
