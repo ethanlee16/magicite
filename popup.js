@@ -92,6 +92,8 @@ function generateCitations() {
     cite(currentTabs);
 }
 
+
+
 document.addEventListener('DOMContentLoaded', function() {
     chrome.tabs.query({}, function (tabs) {
         for(var i = 0; i < tabs.length; i++) {
@@ -114,4 +116,6 @@ document.addEventListener('DOMContentLoaded', function() {
             })(title, url, fullURL);
         }
     });
+    document.getElementById("button").addEventListener('click', generateCitations, false);
 });
+
