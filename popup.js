@@ -73,7 +73,7 @@ function createReqObject(title, author, url) {
 
 function cite(urlArray) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://www.easybib.com/cite/bulk", true);
+    xhr.open("PUT", " http://api.easybib.com/2.1/rest/cite", true);
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4) {
             var res = JSON.parse(xhr.responseText);
@@ -84,11 +84,12 @@ function cite(urlArray) {
     for (var i = 0; i < urlArray.length; i++) {
         request.push(urlArray[i]);
     }
-    xhr.send(request);
+    xhr.send(request[0]);
 }
 
 
 function generateCitations() {
+    console.log("citing");
     cite(currentTabs);
 }
 
@@ -118,4 +119,3 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     document.getElementById("button").addEventListener('click', generateCitations, false);
 });
-
