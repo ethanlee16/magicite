@@ -19,11 +19,11 @@ function updateStatus(title, author, url) {
 function findAuthor(url, callback) {
     var data;
     var encodedUrl = encodeURI(url);
-    //console.log(encodedUrl);
+
     var HTTPrequest = "http://access.alchemyapi.com/calls/url/URLGetAuthors?"
     + "apikey=" + keys.alchemy + "&url=" + encodedUrl + "&outputMode=json";
-    //console.log(HTTPrequest);
     var xhr = new XMLHttpRequest();
+    
     xhr.open("GET", HTTPrequest, true);
     xhr.onreadystatechange = function processData() {
         if (xhr.readyState == 4) {
@@ -92,8 +92,6 @@ function generateCitations() {
     console.log("citing");
     cite(currentTabs);
 }
-
-
 
 document.addEventListener('DOMContentLoaded', function() {
     chrome.tabs.query({}, function (tabs) {
