@@ -80,7 +80,7 @@ function createReqObject(title, author, url) {
 }
 
 function generateCitations() {
-  fetch('http://localhost:3000/api/citations', {
+  fetch('http://magicite.herokuapp.com/api/citations', {
     method: 'POST',
     body: JSON.stringify({
       urls: currentTabs
